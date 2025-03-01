@@ -7,9 +7,6 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const https_1 = __importDefault(require("https"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
 const sse_1 = __importDefault(require("./routes/sse"));
 const router_1 = __importDefault(require("./routes/router"));
 dotenv_1.default.config();
@@ -21,17 +18,17 @@ app.use(body_parser_1.default.json());
 // Routes
 app.use(sse_1.default);
 app.use(router_1.default);
-app.use(express_1.default.static("dist-frontend"));
-const sslOptions = {
-    key: fs_1.default.readFileSync(path_1.default.join(__dirname, 'ssl', 'miocert.key')),
-    cert: fs_1.default.readFileSync(path_1.default.join(__dirname, 'ssl', 'miocert.crt'))
-};
-// /etc/ssl/private/miocert.key
-///etc/ssl/certs/miocert.crt
-// Avvio del server HTTPS
-https_1.default.createServer(sslOptions, app).listen(PORT, () => {
-    console.log(`Server in ascolto su https://localhost:${PORT}`);
-});
-// app.listen(PORT, () => {
-//     console.log(`Server in ascolto su http://localhost:${PORT}`);
+// app.use(express.static("dist-frontend"));
+// const sslOptions = {
+//     key: fs.readFileSync(path.join(__dirname, 'miocert.key')),
+//     cert: fs.readFileSync(path.join(__dirname, 'miocert.crt'))
+// };
+//   // /etc/ssl/private/miocert.key
+// ///etc/ssl/certs/miocert.crt
+// // Avvio del server HTTPS
+// https.createServer(sslOptions, app).listen(PORT, () => {
+// console.log(`Server in ascolto su https://localhost:${PORT}`);
 // });
+app.listen(PORT, () => {
+    console.log(`Server in ascolto su http://localhost:${PORT}`);
+});
