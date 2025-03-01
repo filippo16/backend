@@ -13,7 +13,7 @@ import rot from './routes/router';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 80;
 
 // Middleware
 app.use(cors());
